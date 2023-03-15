@@ -1,12 +1,16 @@
 @import "../../styles/globals.scss";
 
 .chat {
+  overflow: hidden;
   background: $white 0% 0% no-repeat padding-box;
   box-shadow: 0px 20px 50px #00000027;
   border-radius: 9px;
-  max-width: 380px;
-  overflow: hidden;
-
+  transform: scale(0);
+  transform-origin: bottom right;
+  transition: all ease-in-out 0.3s;
+  &.isOpen {
+    transform: scale(1);
+  }
   .header {
     background-color: $primary;
     color: $white;

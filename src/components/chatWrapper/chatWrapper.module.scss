@@ -4,4 +4,8 @@
   position: fixed;
   bottom: 44px;
   right: 76px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 35px;
 }
