@@ -1,4 +1,40 @@
 @import "../../styles/globals.scss";
 
 .chat {
+  background: $white 0% 0% no-repeat padding-box;
+  box-shadow: 0px 20px 50px #00000027;
+  border-radius: 9px;
+  max-width: 380px;
+  overflow: hidden;
+
+  .header {
+    background-color: $primary;
+    color: $white;
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 29px 30px 21px 33px;
+
+    .title {
+      flex-grow: 1;
+    }
+  }
+  .content {
+    padding: 36px 12px 27px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    text-align: center;
+    h1 {
+      @include font(26px, bold, 40px);
+    }
+    p {
+      @include font(16px, normal, 24px);
+    }
+  }
+  .input {
+    margin: 0 12px 12px 12px;
+  }
 }
