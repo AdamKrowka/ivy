@@ -1,14 +1,13 @@
-import styles from "./chatConversation.module.scss";
-
 import { ReactComponent as Logo } from "icons/Logo.svg";
-import cx from "classnames";
-import { useState } from "react";
-import { useEffect } from "react";
-import { ReactNode } from "react";
+import { useState, useEffect, ReactNode } from "react";
 import { useChatContext } from "context/chatContext";
+import styles from "./chatConversation.module.scss";
+import cx from "classnames";
+import { useRef } from "react";
 
 interface RowProps {
-  text: string | ReactNode;
+  text: string;
+  dots?: ReactNode;
 }
 
 const Row = ({
@@ -32,11 +31,18 @@ const Row = ({
     </div>
   );
 };
-const BotRow = ({ text }: RowProps) => {
+const BotRow = ({ text, dots }: RowProps) => {
   return (
     <Row className={styles.botRow}>
       <Logo />
-      <span>{text}</span>
+      {dots && <span>{dots}</span>}
+      {text && (
+        <span
+          dangerouslySetInnerHTML={{
+            __html: text,
+          }}
+        />
+      )}
     </Row>
   );
 };
@@ -50,23 +56,36 @@ const ClientRow = ({ text }: RowProps) => {
 };
 
 const ChatConversation = () => {
-  const {} = useChatContext();
+  const { isBotTyping, messages } = useChatContext();
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    ref.current.scrollTop = ref.current.scrollHeight;
+  }, [isBotTyping, messages]);
   return (
-    <div className={styles.chatConversation}>
+    <div className={styles.chatConversation} ref={ref}>
       <div className={styles.messages}>
-        <BotRow text="Hello, how can I help you?" />
-        <ClientRow text="hi" />
-        <BotRow text="Hello" />
+        {messages.map((message) =>
+          message.role === "user" ? (
+            <ClientRow text={message.content} />
+          ) : (
+            <BotRow text={message.content} />
+          )
+        )}
       </div>
-      <BotRow
-        text={
-          <div className={styles.typing}>
-            <strong className={styles.dot} />
-            <strong className={styles.dot} />
-            <strong className={styles.dot} />
-          </div>
-        }
-      />
+      {isBotTyping && (
+        <BotRow
+          text=""
+          dots={
+            <div className={styles.typing}>
+              <strong className={styles.dot} />
+              <strong className={styles.dot} />
+              <strong className={styles.dot} />
+            </div>
+          }
+        />
+      )}
     </div>
   );
 };

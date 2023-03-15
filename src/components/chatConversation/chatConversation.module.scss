@@ -1,9 +1,11 @@
 @import "styles/globals.scss";
 .chatConversation {
   flex-grow: 1;
-  padding: 32px 28px;
+  padding: 32px 28px 10px 28px;
   display: flex;
   flex-direction: column;
+  max-height: calc(100% - 159px);
+  overflow-y: auto;
   .messages {
     display: flex;
     flex-direction: column;
@@ -26,6 +28,7 @@
     svg {
       width: 39px;
       height: 39px;
+      min-width: 39px;
     }
     span {
       background: #eaeff8 0% 0% no-repeat padding-box;
