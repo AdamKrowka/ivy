@@ -66,11 +66,11 @@ const ChatConversation = () => {
   return (
     <div className={styles.chatConversation} ref={ref}>
       <div className={styles.messages}>
-        {messages.map((message) =>
+        {messages.map((message, index) =>
           message.role === "user" ? (
-            <ClientRow text={message.content} />
+            <ClientRow text={message.content} key={`client-${index}`} />
           ) : (
-            <BotRow text={message.content} />
+            <BotRow text={message.content} key={`bot-${index}`} />
           )
         )}
       </div>

@@ -3,10 +3,11 @@ import styles from "./chat.module.scss";
 import cx from "classnames";
 import { ReactComponent as Close } from "icons/Close.svg";
 import { ReactComponent as More } from "icons/More.svg";
+import { ReactComponent as Logo } from "icons/LogoBig.svg";
 import ChatInput from "components/chatInput/chatInput";
 import ChatConversation from "components/chatConversation/chatConversation";
 const Chat = () => {
-  const { isChatOpen, toggleChat, isChatActive } = useChatContext();
+  const { isChatOpen, toggleChat, isChatActive, clearChat } = useChatContext();
 
   return (
     <div
@@ -16,11 +17,21 @@ const Chat = () => {
       })}
     >
       <div className={styles.header}>
-        <button type="button" title="more" className={styles.more}>
+        {/* TODO more actions, now clear chat */}
+        <button
+          type="button"
+          title="clear"
+          className={styles.more}
+          onClick={clearChat}
+        >
           <More />
         </button>
-        <div className={styles.title}>Ivy Bot</div>
-
+        {isChatActive && <div className={styles.title}>Ivy Bot</div>}
+        {!isChatActive && (
+          <div className={styles.logoWrapper}>
+            <Logo />
+          </div>
+        )}
         <button
           type="button"
           title="close"

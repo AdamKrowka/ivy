@@ -14,6 +14,7 @@ export interface ContextValue {
   sendRequest: (text: string) => void;
   isBotTyping: boolean;
   messages: ChatCompletionRequestMessage[];
+  clearChat: () => void;
 }
 
 const defaultValue: ContextValue = {
@@ -24,6 +25,7 @@ const defaultValue: ContextValue = {
   sendRequest: () => {},
   isBotTyping: false,
   messages: [],
+  clearChat: () => {},
 };
 const ChatContext = createContext<ContextValue>(defaultValue);
 
@@ -46,6 +48,7 @@ export const ChatContextWrapper = ({ children }: ChatContextWrapperProps) => {
   useEffect(() => {
     const storedMessages = localStorage.getItem("messages");
     if (!storedMessages) return;
+    console.log(storedMessages);
     setMessages(JSON.parse(storedMessages));
     setIsChatActive(true);
   }, []);
@@ -93,6 +96,12 @@ export const ChatContextWrapper = ({ children }: ChatContextWrapperProps) => {
     ]);
   };
 
+  const clearChat = () => {
+    localStorage.removeItem("messages");
+    setIsChatActive(false);
+    setMessages([]);
+  };
+
   const value: ContextValue = {
     isChatOpen,
     isChatActive,
@@ -101,6 +110,7 @@ export const ChatContextWrapper = ({ children }: ChatContextWrapperProps) => {
     sendRequest,
     isBotTyping,
     messages,
+    clearChat,
   };
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
 };

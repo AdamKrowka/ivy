@@ -15,7 +15,8 @@ const initialValues = {
 };
 
 const ChatInput = () => {
-  const { isChatActive, startChat, sendRequest } = useChatContext();
+  const { isChatActive, startChat, sendRequest, isBotTyping } =
+    useChatContext();
   const inputRef = useRef<HTMLInputElement>(null);
   const onStartClick = () => {
     if (isChatActive) return;
@@ -28,6 +29,7 @@ const ChatInput = () => {
     values: FormValues,
     { setSubmitting, resetForm }: FormikHelpers<FormValues>
   ) => {
+    if (isBotTyping) return;
     sendRequest(values.text);
     setSubmitting(false);
     resetForm();
@@ -49,7 +51,7 @@ const ChatInput = () => {
           <Field
             type="text"
             name="text"
-            ref={inputRef}
+            forwardref={inputRef}
             autoComplete="off"
             placeholder={placeholder}
           />

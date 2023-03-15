@@ -1,7 +1,6 @@
 @import "../../styles/globals.scss";
 
 .chat {
-  overflow: hidden;
   background: $white 0% 0% no-repeat padding-box;
   box-shadow: 0px 20px 50px #00000027;
   border-radius: 9px;
@@ -20,6 +19,7 @@
     max-height: calc(100vh - 300px);
   }
   .header {
+    border-radius: 9px 9px 0 0;
     background-color: $primary;
     color: $white;
     display: flex;
@@ -29,6 +29,18 @@
 
     .title {
       flex-grow: 1;
+    }
+
+    .logoWrapper {
+      position: relative;
+      width: 100%;
+      svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 1;
+        transform: translate(-50%, -50%);
+      }
     }
   }
   .contentNotActive {

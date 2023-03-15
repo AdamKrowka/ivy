@@ -1,5 +1,6 @@
 import { Configuration, OpenAIApi, ChatCompletionRequestMessage } from "openai";
 
+// TODO IMPORTANT THIS SHOULD BE ON BACKED
 const configuration = new Configuration({
   apiKey: process.env.REACT_APP_OPENAI_API_KEY,
 });
