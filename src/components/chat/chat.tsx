@@ -3,8 +3,10 @@ import styles from "./chat.module.scss";
 import cx from "classnames";
 import { ReactComponent as Close } from "icons/Close.svg";
 import { ReactComponent as More } from "icons/More.svg";
+import ChatInput from "components/chatInput/chatInput";
 const Chat = () => {
   const { isChatOpen, toggleChat } = useChatContext();
+
   return (
     <div
       className={cx(styles.chat, {
@@ -26,12 +28,12 @@ const Chat = () => {
           <Close />
         </button>
       </div>
-      <div className={styles.content}>
+      <div className={styles.contentNotActive}>
         <h1>Hi, I am Ivy!</h1>
         <p>I am a virtual assistant here to answer your questions.</p>
       </div>
       <div className={styles.input}>
-        <input title="text" />
+        <ChatInput />
       </div>
     </div>
   );

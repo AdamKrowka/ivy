@@ -9,6 +9,7 @@ export interface ContextValue {
   isChatActive: boolean;
   toggleChat: () => void;
   startChat: () => void;
+  sendRequest: (text: string) => void;
 }
 
 const defaultValue: ContextValue = {
@@ -16,6 +17,7 @@ const defaultValue: ContextValue = {
   isChatOpen: false,
   toggleChat: () => {},
   startChat: () => {},
+  sendRequest: () => {},
 };
 const ChatContext = createContext<ContextValue>(defaultValue);
 
@@ -25,16 +27,22 @@ export const ChatContextWrapper = ({ children }: ChatContextWrapperProps) => {
 
   const toggleChat = () => {
     setIsChatOpen((prevState) => !prevState);
+    setIsChatActive(false);
   };
 
   const startChat = () => {
     setIsChatActive(true);
+  };
+
+  const sendRequest = (text: string) => {
+    alert(text);
   };
   const value: ContextValue = {
     isChatOpen,
     isChatActive,
     toggleChat,
     startChat,
+    sendRequest,
   };
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
 };
