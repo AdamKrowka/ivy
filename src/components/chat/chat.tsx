@@ -4,13 +4,15 @@ import cx from "classnames";
 import { ReactComponent as Close } from "icons/Close.svg";
 import { ReactComponent as More } from "icons/More.svg";
 import ChatInput from "components/chatInput/chatInput";
+import ChatConversation from "components/chatConversation/chatConversation";
 const Chat = () => {
-  const { isChatOpen, toggleChat } = useChatContext();
+  const { isChatOpen, toggleChat, isChatActive } = useChatContext();
 
   return (
     <div
       className={cx(styles.chat, {
         [styles.isOpen]: isChatOpen,
+        [styles.isActive]: isChatActive,
       })}
     >
       <div className={styles.header}>
@@ -28,10 +30,13 @@ const Chat = () => {
           <Close />
         </button>
       </div>
-      <div className={styles.contentNotActive}>
-        <h1>Hi, I am Ivy!</h1>
-        <p>I am a virtual assistant here to answer your questions.</p>
-      </div>
+      {!isChatActive && (
+        <div className={styles.contentNotActive}>
+          <h1>Hi, I am Ivy!</h1>
+          <p>I am a virtual assistant here to answer your questions.</p>
+        </div>
+      )}
+      {isChatActive && <ChatConversation />}
       <div className={styles.input}>
         <ChatInput />
       </div>

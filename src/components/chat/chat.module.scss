@@ -8,8 +8,16 @@
   transform: scale(0);
   transform-origin: bottom right;
   transition: all ease-in-out 0.3s;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  max-height: 400px;
   &.isOpen {
     transform: scale(1);
+  }
+  &.isActive {
+    height: 100vh;
+    max-height: calc(100vh - 300px);
   }
   .header {
     background-color: $primary;
