@@ -1,0 +1,90 @@
+@function calculateRem($size) {
+  $remSize: $size / 16px;
+  @return $remSize;
+}
+
+@mixin text(
+  $size: $font-size-base,
+  $weight: normal,
+  $line-height: 1.5,
+  $color: $black
+) {
+  font-size: $size; //Fallback in px
+  font-size: #{calculateRem($size)}rem;
+  font-weight: $weight;
+  line-height: $line-height;
+  color: $color;
+}
+
+@mixin sm {
+  @media (min-width: $breakpoint-sm) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+@mixin xxl {
+  @media (min-width: $breakpoint-xxl) {
+    @content;
+  }
+}
+
+@mixin xxxl {
+  @media (min-width: $breakpoint-xxxl) {
+    @content;
+  }
+}
+
+@mixin font($fontSize, $fontWeight, $lineHeight: null, $color: null) {
+  font: map-get($font, $fontSize, $fontWeight);
+  @if $color != null {
+    color: $color;
+  }
+  @if $lineHeight != null {
+    line-height: #{$lineHeight}px;
+  }
+}
+
+@mixin container() {
+  max-width: 1570px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@mixin scrollbar() {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: $grey transparent;
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    cursor: pointer;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #eaf1fc;
+    border-radius: 5px;
+    width: 5px;
+  }
+}
